@@ -3,127 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <title>Reportes Guardados</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f8f9fa;
-      margin: 0;
-      padding: 40px;
-    }
-
-    .admin-container {
-      max-width: 1000px;
-      margin: auto;
-      background: white;
-      border-radius: 16px;
-      padding: 30px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-    }
-
-    h1, h2 {
-      text-align: center;
-      margin-bottom: 30px;
-      color: #333;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 40px;
-    }
-
-    thead {
-      background-color: #4a90e2;
-      color: white;
-    }
-
-    th, td {
-      text-align: left;
-      padding: 12px;
-      border-bottom: 1px solid #eee;
-      vertical-align: top;
-    }
-
-    tr:nth-child(even) {
-      background-color: #f2f7fb;
-    }
-
-    .footer {
-      text-align: center;
-      font-size: 14px;
-      color: #888;
-    }
-
-    .copy-btn {
-      padding: 6px 12px;
-      background-color: #4a90e2;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 13px;
-    }
-
-    .copy-btn:hover {
-      background-color: #3a78c2;
-    }
-
-    textarea {
-      position: absolute;
-      left: -9999px;
-    }
-    .alerta {
-  background-color: #ffe3e3 !important;
-  color: #c0392b;
-  font-weight: bold;
-  }
-  .copiado {
-  background-color: #28a745 !important;
-  color: white !important;
-}
-
-
-  </style>
+  <link rel="stylesheet" href="../static/css/admin.css">
 </head>
 <body>
-  <div class="admin-container">
-    <h1>Reportes Registrados</h1>
+  <div class="page-wrapper">
+    <div class="admin-container">
+      <h1>Reportes Registrados</h1>
 
-    <h2>Resumen por Nodo</h2>
-<table>
-  <thead>
-    <tr>
-      <th>🌐 Nodo</th>
-      <th>Cantidad de Reportes</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for nodo, cantidad in conteo_nodos.items() %}
-    <tr class="{{ 'alerta' if cantidad >= 5 else '' }}">
-      <td>{{ nodo }}</td>
-      <td>{{ cantidad }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+      <h2>Resumen por Nodo</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>🌐 Nodo</th>
+            <th>Cantidad de Reportes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for nodo, cantidad in conteo_nodos.items() %}
+          <tr class="{{ 'alerta' if cantidad >= 5 else '' }}">
+            <td>{{ nodo }}</td>
+            <td>{{ cantidad }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
 
-
-    <h2>Reportes por Nodo</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Nodo</th>
-      <th>Acción</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for nodo, lista in reportes_por_nodo.items() %}
-    <tr>
-      <td>{{ nodo }}</td>
-      <td>
-        <button class="copy-btn" onclick="copiarMensaje('{{ nodo }}')">📋 Copiar mensaje</button>
-        <textarea id="mensaje-{{ nodo }}" style="display:none;">
+      <h2>Reportes por Nodo</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nodo</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for nodo, lista in reportes_por_nodo.items() %}
+          <tr>
+            <td>{{ nodo }}</td>
+            <td>
+              <button class="copy-btn" onclick="copiarMensaje('{{ nodo }}')">📋 Copiar mensaje</button>
+              <textarea id="mensaje-{{ nodo }}" class="copy-area">
 {% for r in lista %}
 Reportado por {{ r.usuario }} 
 S/N Equipo: {{ r.sn_equipo }}
@@ -138,35 +57,32 @@ Detalle del Inconveniente: {{ r.inconveniente }}{% if r.servicio.lower() == 'cat
 Dirección del cliente: {{ r.direccion }}{% endif %}
 
 {% endfor %}
-        </textarea>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+              </textarea>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
 
-
-    <div class="footer">
-      Esta información es confidencial. No compartir el link.
+      <div class="footer">
+        Esta información es confidencial. No compartir el link.
+      </div>
     </div>
   </div>
 
-<script>
-function copiarMensaje(nodo) {
-  const area = document.getElementById(`mensaje-${nodo}`);
-  area.style.display = 'block';
-  area.select();
-  area.setSelectionRange(0, 99999); // Compatibilidad móvil
-  document.execCommand("copy");
-  area.style.display = 'none';
+  <script>
+    function copiarMensaje(nodo) {
+      const area = document.getElementById(`mensaje-${nodo}`);
+      area.style.display = 'block';
+      area.select();
+      area.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+      area.style.display = 'none';
 
-  // Marcar el botón como copiado
-  const boton = event.target;
-  boton.classList.add("copiado");
-  boton.innerText = "✅ Enviado";
-}
-</script>
-
-
+      const boton = event.target;
+      boton.classList.add("copiado");
+      boton.innerText = "✅ Enviado";
+    }
+  </script>
 </body>
 </html>
