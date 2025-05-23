@@ -5,7 +5,7 @@ import os
 app = Flask(__name__)
 DATA_FILE = 'data/reportes.csv'
 
-@app.route('/reporte', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def formulario():
     if request.method == 'POST':
         datos = {
