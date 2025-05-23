@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario de Reporte</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    form { max-width: 600px; margin: auto; }
+    label { display: block; margin-top: 10px; }
+    input, textarea, select { width: 100%; padding: 8px; margin-top: 5px; }
+    .mensaje { padding: 10px; border-radius: 5px; margin-bottom: 10px; }
+    .success { background: #d4edda; color: #155724; }
+    .error { background: #f8d7da; color: #721c24; }
+  </style>
+  <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body>
+  <h1>Reporte de Nodos</h1>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="mensaje {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <form method="post">
+    <label>Usuario: <input type="text" name="usuario"></label>
+    <label>S/N Equipo: <input type="text" name="sn_equipo"></label>
+    <label>MAC Equipo: <input type="text" name="mac_equipo"></label>
+    <label>Nodo: <input type="text" name="nodo"></label>
+    <label>Región / Localidad: <input type="text" name="region"></label>
+    <label>IP: <input type="text" name="ip"></label>
+    <label>DNI: <input type="text" name="dni"></label>
+    <label>Número de contacto del cliente: <input type="text" name="contacto"></label>
+    <label>Servicio afectado:
+      <select name="servicio">
+        <option>Internet</option>
+        <option>Telefonía</option>
+        <option>CATV</option>
+        <option>Otro</option>
+      </select>
+    </label>
+    <label>Inconveniente (descripción de la falla): <textarea name="inconveniente" required></textarea></label>
+    <label>Dirección (si es cliente CATV): <input type="text" name="direccion"></label>
+    <button type="submit">Enviar</button>
+  </form>
+</body>
+</html>
