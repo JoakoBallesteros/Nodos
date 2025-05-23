@@ -26,25 +26,58 @@
   {% endwith %}
 
   <form method="post">
-    <label>Usuario: <input type="text" name="usuario"></label>
-    <label>S/N Equipo: <input type="text" name="sn_equipo"></label>
-    <label>MAC Equipo: <input type="text" name="mac_equipo"></label>
-    <label>Nodo: <input type="text" name="nodo"></label>
-    <label>Región / Localidad: <input type="text" name="region"></label>
-    <label>IP: <input type="text" name="ip"></label>
-    <label>DNI: <input type="text" name="dni"></label>
-    <label>Número de contacto del cliente: <input type="text" name="contacto"></label>
-    <label>Servicio afectado:
-      <select name="servicio">
-        <option>Internet</option>
-        <option>Telefonía</option>
-        <option>CATV</option>
-        <option>Otro</option>
-      </select>
-    </label>
-    <label>Inconveniente (descripción de la falla): <textarea name="inconveniente" required></textarea></label>
-    <label>Dirección (si es cliente CATV): <input type="text" name="direccion"></label>
-    <button type="submit">Enviar</button>
-  </form>
+  <label>Usuario:
+    <input type="text" name="usuario" required>
+  </label>
+
+  <label>S/N Equipo:
+    <input type="text" name="sn_equipo" required>
+  </label>
+
+  <label>MAC Equipo:
+    <input type="text" name="mac_equipo" required>
+  </label>
+
+  <label>Nodo:
+    <input type="text" name="nodo" required>
+  </label>
+
+  <label>Región / Localidad:
+    <input type="text" name="region" required>
+  </label>
+
+  <label>IP:
+    <input type="text" name="ip">
+  </label>
+
+  <label>DNI:
+    <input type="text" name="dni" required>
+  </label>
+
+  <label>Número de contacto del cliente:
+    <input type="text" name="contacto" required>
+  </label>
+
+  <label>Servicio afectado:
+    <select name="servicio" required>
+      <option value="">Seleccionar</option>
+      <option>Internet</option>
+      <option>Telefonía</option>
+      <option>CATV</option>
+      <option>Otro</option>
+    </select>
+  </label>
+
+  <label>Inconveniente (descripción de la falla):
+    <textarea name="inconveniente" required></textarea>
+  </label>
+
+  <label>Dirección (si es cliente CATV):
+    <input type="text" name="direccion">
+  </label>
+
+  <button type="submit">Enviar</button>
+</form>
+
 </body>
 </html>
